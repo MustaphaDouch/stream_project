@@ -5,6 +5,8 @@ from py_trend import plot_trends
 import datetime
 import os
 from cve_nvd import get_cve_data
+from dateutil.relativedelta import relativedelta
+
 
 # Create folder to cache google trends data csv
 os.system('mkdir -p google_trends_csv')
@@ -12,7 +14,7 @@ os.system('mkdir -p google_trends_csv')
 CVE_id = st.text_input("CVE Complete ID") 
 if CVE_id == "" :
     CVE_id =  "CVE-2021-44228"
-st.write(CVE_id)
+# st.write(CVE_id)
 # Get CVE data from NVD
 cve_data = get_cve_data(CVE_id)['vulnerabilities'][0]['cve']
 
@@ -46,7 +48,7 @@ patch_date = cve_data['cisaActionDue']
 
 # Title
 components.html(f"""
-                <div style="text-align: center; color:white; background-color:black">
+                <div style="text-align: center; color:Black;">
                 <h1>{CVE_id}</h1>
                 </div>
                 """)
@@ -85,10 +87,14 @@ with tab2:
 
 # Google trends
 st.title('Google Trends')
+min_date = datetime.datetime.strptime(date, "%Y-%m-%d")
+max_date = datetime.datetime.now()
+default_date = min_date + relativedelta(months=12)
+
 dat1, dat2 = st.columns(2)
-date1 = str(dat1.date_input('Start Date',value=datetime.datetime.strptime(date, "%Y-%m-%d"), min_value=datetime.datetime.strptime(date, "%Y-%m-%d")))
-date2 = str(dat2.date_input('End Date', value=datetime.datetime.now(),max_value=datetime.datetime.now()))
-st.write(date1,date2)
+date1 = str(dat1.date_input('Start Date',value=min_date, min_value=min_date, max_value=max_date))
+date2 = str(dat2.date_input('End Date', value=max_date,min_value=min_date,max_value=max_date))
+# st.write(date1,date2)
 # st.date_input('Start Date')
 
 plot_trends(CVE_id, date1, date2, patch_date=patch_date)
