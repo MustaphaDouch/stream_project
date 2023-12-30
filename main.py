@@ -109,4 +109,4 @@ st.success(required_action)
 # st.write('Patches')
 
 # Weaknesses
-st.text_input('Weaknesses')
+# st.text_input('Weaknesses')
