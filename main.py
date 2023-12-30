@@ -50,6 +50,7 @@ patch_date = cve_data['cisaActionDue']
 components.html(f"""
                 <div style="text-align: center; color:Black;">
                 <h1>{CVE_id}</h1>
+                <h3>{cisa_vul_name}</h3>
                 </div>
                 """)
 

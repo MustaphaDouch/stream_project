@@ -24,8 +24,8 @@ def get_cve_data(cve_id):
 
 # cve_id = "CVE-2021-44228"
 
-# cve_data = json.loads(get_cve_data(cve_id))
-
+# cve_data = get_cve_data(cve_id)
+# st.write(cve_data['vulnerabilities'][0]['cve']["cisaVulnerabilityName"])
 # st.json(cve_data)
 # print(cve_data)
 # print(cve_data['vulnerabilities'])
